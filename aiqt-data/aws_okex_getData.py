@@ -19,9 +19,9 @@ def insert_data(connection, data):
         try:
             cursor.execute(query)
         except Error as e:
-            print(f"The error '{e}' occurred")
+            print(f"插入数据错误： '{e}' occurred")
     connection.commit()
-    print("Data inserted successfully")
+    print("插入数据成功！")
 
 # 创建数据库连接
 connection = create_connection("35.175.245.164", "aiqt", "Aiqt@2024", "aiqt")

@@ -10,9 +10,9 @@ def create_connection(host_name, user_name, user_password, db_name):
             passwd=user_password,
             database=db_name
         )
-        print("Connection to MySQL DB successful")
+        print("连接数据库aiqt成功！")
     except Error as e:
-        print(f"The error '{e}' occurred")
+        print(f"连接数据库aiqt失败：'{e}' ")
     return connection
 
 def execute_query(connection, query):
@@ -20,6 +20,6 @@ def execute_query(connection, query):
     try:
         cursor.execute(query)
         connection.commit()
-        print("Query executed successfully")
+        print("执行查询成功！")
     except Error as e:
-        print(f"The error '{e}' occurred")
+        print(f"执行查询错误： '{e}' 致命错误")
