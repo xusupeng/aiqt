@@ -19,7 +19,7 @@ def timer_get_ticker_data(interval):
         time.sleep(interval)
 
 # 设置多线程参数
-num_threads = 5
+num_threads = SQ
 interval = 5  # 每隔5秒获取一次数据
 
 # 创建一个线程列表
