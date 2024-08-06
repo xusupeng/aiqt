@@ -1,12 +1,21 @@
 import requests
 import time
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 from mySQL_Data import create_connection, execute_query
 
 def fetch_okex_data():
     url = "https://www.okex.com/api/spot/v3/instruments/ETH-USDT/candles?granularity=60"
-    response = requests.get(url)
+    session = requests.Session()
+    retry = Retry(total=5, backoff_factor=1, status_forcelist=[429, 500, 502, 503, 504])
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+    response = session.get(url)
     data = response.json()
     return data
+
+# 其他代码保持不变
 
 def insert_data(connection, data):
     cursor = connection.cursor()
