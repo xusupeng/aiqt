@@ -1,8 +1,16 @@
 import requests
 import time
+import socket
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 from mySQL_Data import create_connection, execute_query
+import dns.resolver
+
+def resolve_hostname(hostname):
+    resolver = dns.resolver.Resolver()
+    resolver.nameservers = ['8.8.8.8', '1.1.1.1']  # 使用Google和Cloudflare的DNS服务器
+    answers = resolver.resolve(hostname, 'A')
+    return answers[0].address
 
 def fetch_okex_data():
     url = "https://www.okex.com/api/spot/v3/instruments/ETH-USDT/candles?granularity=60"
@@ -12,12 +20,22 @@ def fetch_okex_data():
     session.mount('http://', adapter)
     session.mount('https://', adapter)
     try:
-        response = session.get(url)
+        ip_address = resolve_hostname('www.okex.com')
+        response = session.get(url, headers={'Host': 'www.okex.com'}, verify=False)
         response.raise_for_status()  # 检查请求是否成功
         data = response.json()
         return data
     except requests.exceptions.RequestException as e:
         print(f"请求错误：{e}")
+        return None
+    except dns.resolver.NXDOMAIN:
+        print("DNS解析错误：域名不存在")
+        return None
+    except dns.resolver.Timeout:
+        print("DNS解析错误：请求超时")
+        return None
+    except dns.resolver.NoNameservers:
+        print("DNS解析错误：没有可用的DNS服务器")
         return None
 
 # 其他代码保持不变
