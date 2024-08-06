@@ -11,13 +11,21 @@ def fetch_okex_data():
     adapter = HTTPAdapter(max_retries=retry)
     session.mount('http://', adapter)
     session.mount('https://', adapter)
-    response = session.get(url)
-    data = response.json()
-    return data
+    try:
+        response = session.get(url)
+        response.raise_for_status()  # 检查请求是否成功
+        data = response.json()
+        return data
+    except requests.exceptions.RequestException as e:
+        print(f"请求错误：{e}")
+        return None
 
 # 其他代码保持不变
 
 def insert_data(connection, data):
+    if data is None:
+        print("没有数据可插入")
+        return
     cursor = connection.cursor()
     for entry in data:
         timestamp, open_price, high_price, low_price, close_price, volume, _ = entry
