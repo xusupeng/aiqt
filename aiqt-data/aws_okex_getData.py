@@ -1,41 +1,48 @@
-#<<<<<<<<<<<<<<<<<<<<<<<< CodeGeeX Inline Diff>>>>>>>>>>>>>>>>>>>>>>>>
-import threading
-import time
 import requests
+import time
+from mySQL_Data import create_connection, execute_query
 
-# OKEx API URL
-url = "https://www.okex.com/api/spot/v3/instruments/ETH-USDT/ticker"
-
-# 定义一个函数，用于获取交易数据
-def get_ticker_data():
+def fetch_okex_data():
+    url = "https://www.okex.com/api/spot/v3/instruments/ETH-USDT/candles?granularity=60"
     response = requests.get(url)
     data = response.json()
-    print("当前交易数据：", data)
+    return data
 
-# 定义一个函数，用于定时获取交易数据
-def timer_get_ticker_data(interval):
-    while True:
-        get_ticker_data()
-        time.sleep(interval)
+def insert_data(connection, data):
+    cursor = connection.cursor()
+    for entry in data:
+        timestamp, open_price, high_price, low_price, close_price, volume, _ = entry
+        query = f"""
+        INSERT INTO ethUSD (timestamp, open_price, high_price, low_price, close_price, volume)
+        VALUES ('{timestamp}', {open_price}, {high_price}, {low_price}, {close_price}, {volume})
+        """
+        try:
+            cursor.execute(query)
+        except Error as e:
+            print(f"The error '{e}' occurred")
+    connection.commit()
+    print("Data inserted successfully")
 
-# 设置多线程参数
-num_threads = SQ
-interval = 5  # 每隔5秒获取一次数据
+# 创建数据库连接
+connection = create_connection("35.175.245.164", "aiqt", "Aiqt@2024", "aiqt")
 
-# 创建一个线程列表
-threads = []
+# 创建表
+create_table_query = """
+CREATE TABLE IF NOT EXISTS ethUSD (
+  id INT AUTO_INCREMENT, 
+  timestamp VARCHAR(255) NOT NULL, 
+  open_price FLOAT, 
+  high_price FLOAT, 
+  low_price FLOAT, 
+  close_price FLOAT, 
+  volume FLOAT, 
+  PRIMARY KEY (id)
+) ENGINE = InnoDB
+"""
+execute_query(connection, create_table_query)
 
-# 创建并启动多线程
-for i in range(num_threads):
-    t = threading.Thread(target=timer_get_ticker_data, args=(interval,))
-    threads.append(t)
-    t.start()
-
-# 等待所有线程完成
-for t in threads:
-    t.join()
-
-print("所有线程已完成")
-
-#<<<<<<<<<<<<<<<<<<<<<<<< CodeGeeX Inline Diff>>>>>>>>>>>>>>>>>>>>>>>>
-
+# 获取并插入数据
+while True:
+    data = fetch_okex_data()
+    insert_data(connection, data)
+    time.sleep(60)  # 每分钟获取一次数据
