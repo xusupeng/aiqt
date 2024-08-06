@@ -25,7 +25,7 @@ def execute_query(connection, query):
         print(f"The error '{e}' occurred")
 
 # 示例用法
-connection = create_connection("1.12.67.8", "aiqt", "Dowin@2011", "aiqt")
+connection = create_connection("35.175.245.164", "aiqt", "Aiqt@2024", "aiqt")
 
 # 示例查询：创建一个表
 create_table_query = """
