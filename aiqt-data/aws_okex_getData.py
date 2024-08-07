@@ -5,12 +5,25 @@ from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 from mySQL_Data import create_connection, execute_query
 
-def fetch_okex_data():
+def fetch_okex_data(api_key, api_secret):
     # 新的 URL
     url = "https://www.okx.com/api/v5/market/candles?symbol=ETH-USDT&granularity=60"
 
+    # 创建签名
+    timestamp = int(time.time() * 1000)
+    message = f"{timestamp}GET/api/v5/market/candles?symbol=ETH-USDT&granularity=60"
+    signature = requests.utils.quote(requests.utils.hmac_sha256(api_secret, message).hexdigest())
+
+    # 设置请求头
+    headers = {
+        "OK-ACCESS-KEY": "7f27a0b4-ceb3-4e4f-bcf1-f33ce44854d4",
+        "OK-ACCESS-SIGN": "3430205DBFB07579E48EE2063FDB02A0",
+        "OK-ACCESS-TIMESTAMP": str(timestamp),
+        "OK-ACCESS-PASSPHRASE": "Aiqt@2024"  # 替换为你的 passphrase
+    }
+
     # 发送 GET 请求
-    response = requests.get(url)
+    response = requests.get(url, headers=headers)
 
     # 检查响应状态码
     if response.status_code == 200:
@@ -27,7 +40,7 @@ def fetch_okex_data():
     session.mount('https://', adapter)
     try:
         ip_address = '104.16.160.75'  # 假设这是 www.okex.com 的IP地址
-        response = session.get(url, headers={'Host': 'www.okex.com'}, verify=False)
+        response = session.get(url, headers=headers, verify=False)
         response.raise_for_status()  # 检查请求是否成功
         data = response.json()
         return data
@@ -73,6 +86,6 @@ execute_query(connection, create_table_query)
 
 # 获取并插入数据
 while True:
-    data = fetch_okex_data()
+    data = fetch_okex_data("your api key", "your api secret")
     insert_data(connection, data)
     time.sleep(60)  # 每分钟获取一次数据
