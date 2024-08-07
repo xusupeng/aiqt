@@ -47,7 +47,7 @@ def fetch_okex_data(api_key, api_secret):
         data = response.json()
         return data
     except requests.exceptions.RequestException as e:
-        print(f"请求错误：{e}")
+        print(f"请求错误：{e}")对
         return None
 
 def insert_data(connection, data):
