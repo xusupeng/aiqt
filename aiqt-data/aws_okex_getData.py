@@ -1,5 +1,7 @@
 import requests
 import time
+import hmac
+import hashlib
 import socket
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
@@ -12,14 +14,14 @@ def fetch_okex_data(api_key, api_secret):
     # 创建签名
     timestamp = int(time.time() * 1000)
     message = f"{timestamp}GET/api/v5/market/candles?symbol=ETH-USDT&granularity=60"
-    signature = requests.utils.quote(requests.utils.hmac_sha256(api_secret, message).hexdigest())
+    signature = requests.utils.quote(hmac.new(api_secret.encode('utf-8'), message.encode('utf-8'), hashlib.sha256).hexdigest())
 
     # 设置请求头
     headers = {
         "OK-ACCESS-KEY": "7f27a0b4-ceb3-4e4f-bcf1-f33ce44854d4",
         "OK-ACCESS-SIGN": "3430205DBFB07579E48EE2063FDB02A0",
         "OK-ACCESS-TIMESTAMP": str(timestamp),
-        "OK-ACCESS-PASSPHRASE": "Aiqt@2024"  # 替换为你的 passphrase
+        "OK-ACCESS-PASSPHRASE": "Aiqt@2024"
     }
 
     # 发送 GET 请求
