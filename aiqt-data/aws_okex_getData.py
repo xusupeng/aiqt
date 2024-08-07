@@ -6,7 +6,20 @@ from requests.packages.urllib3.util.retry import Retry
 from mySQL_Data import create_connection, execute_query
 
 def fetch_okex_data():
-    url = "https://www.okex.com/api/spot/v3/instruments/ETH-USDT/candles?granularity=60"
+    # 新的 URL
+    url = "https://www.okx.com/api/v5/market/candles?symbol=ETH-USDT&granularity=60"
+
+    # 发送 GET 请求
+    response = requests.get(url)
+
+    # 检查响应状态码
+    if response.status_code == 200:
+        # 获取响应内容
+        data = response.json()
+        print(data)
+    else:
+        print(f"请求失败，状态码：{response.status_code}")
+
     session = requests.Session()
     retry = Retry(total=5, backoff_factor=1, status_forcelist=[429, 500, 502, 503, 504])
     adapter = HTTPAdapter(max_retries=retry)
@@ -21,8 +34,6 @@ def fetch_okex_data():
     except requests.exceptions.RequestException as e:
         print(f"请求错误：{e}")
         return None
-
-# 其他代码保持不变
 
 def insert_data(connection, data):
     if data is None:
