@@ -4,7 +4,7 @@ from okex import AccountAPI, MarketAPI
 
 
 # 安装websocket库和pythonSDK库：pip install websocket-client okex-python-sdk-api
-
+# 已上传有执行权限了
 
 # 创建API对象
 market_api = MarketAPI(api_key, secret_key, passphrase, False)
