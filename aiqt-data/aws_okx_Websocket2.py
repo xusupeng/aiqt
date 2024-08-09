@@ -35,5 +35,7 @@ client = OkxClient(
 # 打印结果
 # print(ticker)
 # 
-response = client.get_account_balance()
+
+account = AccountAPI(client)
+response = account.get_account_balance()
 print(response)
