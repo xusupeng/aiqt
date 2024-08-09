@@ -40,7 +40,7 @@ if __name__ == "__main__":
     ws = websocket.WebSocketApp("wss://wsaws.okx.com:8443/ws/v5/public",
                                 on_message=on_message,
                                 on_error=on_error,
-                                on_close=on_close)
+                                on_close=on_pong)
     ws.on_open = on_open
     ws.run_forever()
 
