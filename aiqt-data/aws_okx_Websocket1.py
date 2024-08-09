@@ -1,6 +1,9 @@
 import websocket
 import json
-from okx import AccountAPI, MarketAPI
+import sys
+sys.path.append('/aiqt/myenv/lib/python3.12/site-packages/okx/')
+from MarketData import MarketAPI
+from Account import AccountAPI
 
 
 # 安装websocket库和pythonSDK库：pip install websocket-client python_okx
