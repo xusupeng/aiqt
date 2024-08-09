@@ -25,7 +25,7 @@ result = publicDataAPI.get_instruments(
 )
 
 for i, item in enumerate(result):
-    if i >= 10:
+    if i >= 50:
         break
     print(item)
 
