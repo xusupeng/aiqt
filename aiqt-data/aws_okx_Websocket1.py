@@ -42,7 +42,7 @@ if __name__ == "__main__":
     ws.run_forever()
 
     # 获取ETH/USD的行情数据
-    ticker = market_api.get_ticker('eth-usd')
+    ticker = market_api.get_ticker('ETH/USD')
     #print(f"ETH/USD 最新价格: {ticker['last']}")
     print(f"ETH/USD 最新价格: {ticker}")
     # 获取ETH/USD的深度数据
