@@ -47,7 +47,7 @@ print(result)
 accountAPI = Account.AccountAPI(apikey, secretkey, passphrase, False, flag)
 # 查看账户余额
 result = accountAPI.get_account_balance()
-print(result)
+print("查看账户余额:"+result)
 
 
 
