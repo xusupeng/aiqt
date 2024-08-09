@@ -11,8 +11,6 @@ from okx.Account import AccountAPI
 
 market_api = MarketAPI("7f27a0b4-ceb3-4e4f-bcf1-f33ce44854d4", "3430205DBFB07579E48EE2063FDB02A0", "Aiqt@2024", False)
 
-import websocket
-
 def on_message(ws, message):
     print(message)
 
