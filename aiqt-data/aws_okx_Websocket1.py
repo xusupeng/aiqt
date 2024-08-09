@@ -8,7 +8,8 @@ from okx.Account import AccountAPI
 
 # 安装websocket库和pythonSDK库：pip install websocket-client python_okx
 # 创建API对象
-market_api = MarketAPI(api_key, secret_key, passphrase, False)
+
+market_api = MarketAPI("7f27a0b4-ceb3-4e4f-bcf1-f33ce44854d4", "3430205DBFB07579E48EE2063FDB02A0", "Aiqt@2024", False)
 
 def on_message(ws, message):
     data = json.loads(message)
