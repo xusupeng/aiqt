@@ -15,8 +15,6 @@ from config import API_KEY, API_SECRET, PASSPHRASE
 #主账户
 #client = OkxClient(api_key="f2b08d9f-35c9-4b5d-b3bb-12f00b82a52d", api_secret_key="7CC4B437BAFAE692E7EEC9449FB54FAA", passphrase="Aiqt@2024")
 
-from okxclient import OkxClient
-
 client = OkxClient(
     api_key=API_KEY,
     api_secret_key=API_SECRET,
