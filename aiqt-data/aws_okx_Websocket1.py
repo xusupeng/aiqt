@@ -1,11 +1,9 @@
 import websocket
 import json
-from python_okx import AccountAPI, MarketAPI
+from okx import AccountAPI, MarketAPI
 
 
-# 安装websocket库和pythonSDK库：pip install websocket-client okex-python-sdk-api
-# 已上传有执行权限了
-
+# 安装websocket库和pythonSDK库：pip install websocket-client python_okx
 # 创建API对象
 market_api = MarketAPI(api_key, secret_key, passphrase, False)
 
