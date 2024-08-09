@@ -18,9 +18,10 @@ flag = "0"  # 实盘:0 , 模拟盘：1
 
 publicDataAPI = PublicData.PublicAPI(flag=flag)
 
-# 获取交易产品基础信息
+# 获取交易产品基础信息  
+# 产品类型 SPOT：币币MARGIN：币币杠杆SWAP：永续合约FUTURES：交割合约OPTION：期权
 result = publicDataAPI.get_instruments(
-    instType="SPOT"
+    instType="SWAP"
 )
 print(result)
 
