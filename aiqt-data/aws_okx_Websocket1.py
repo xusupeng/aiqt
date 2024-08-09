@@ -46,5 +46,5 @@ if __name__ == "__main__":
     #print(f"ETH/USD 最新价格: {ticker['last']}")
     print(f"ETH/USD 最新价格: {ticker}")
     # 获取ETH/USD的深度数据
-    depth = market_api.get_depth('eth-usd', 5)
-    print(f"ETH/USD 深度数据: {depth}")
+    #depth = market_api.get_depth('eth-usd', 5)
+    #print(f"ETH/USD 深度数据: {depth}")
