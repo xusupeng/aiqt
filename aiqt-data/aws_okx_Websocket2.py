@@ -10,7 +10,7 @@ from okx.okxclient import OkxClient
 from config import API_KEY, API_SECRET, PASSPHRASE
 
 # 创建一个OkxClient实例
-client = OkxClient(api_key=API_KEY, api_secret=API_SECRET, passphrase=PASSPHRASE)
+client = OkxClient(api_key=API_KEY, api_secret_key=API_SECRET, passphrase=PASSPHRASE)
 
 # 创建一个MarketAPI实例
 market = MarketAPI(client)
