@@ -19,8 +19,8 @@ def on_message(ws, message):
 def on_error(ws, error):
     print(error)
 
-def on_close(ws):
-    print("连接已关闭")
+def on_close(ws, close_status_code, close_msg):
+    print("连接已关闭", close_status_code, close_msg)
 
 def on_open(ws):
     print("连接已打开")
