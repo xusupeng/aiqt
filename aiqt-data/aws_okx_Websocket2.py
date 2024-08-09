@@ -17,7 +17,7 @@ account = AccountAPI(api_key, api_secret)
 
 # 获取账户余额
 
-balance = account.get_balance()
+balance = account.get_account_balance()
 print(balance)
 
 
