@@ -23,7 +23,11 @@ publicDataAPI = PublicData.PublicAPI(flag=flag)
 result = publicDataAPI.get_instruments(
     instType="SWAP"
 )
-print(result)
+
+for i, item in enumerate(result):
+    if i >= 10:
+        break
+    print(item)
 
 
 
