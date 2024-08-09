@@ -30,10 +30,17 @@ for i, item in enumerate(result):
     print(item)
 
 # 获取持仓总量
-result = publicDataAPI.get_open_interest(
-    instType="FUTURES",
+import okx.MarketData as MarketData
+
+
+marketDataAPI =  MarketData.MarketAPI(flag=flag)
+
+# 获取指数行情
+result = marketDataAPI.get_index_tickers(
+    instId="BTC-USD"
 )
 print(result)
+
 
 # 创建一个OkxClient实例
 #子账户
