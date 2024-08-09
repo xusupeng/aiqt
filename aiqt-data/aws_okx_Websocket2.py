@@ -29,7 +29,11 @@ for i, item in enumerate(result):
         break
     print(item)
 
-
+# 获取持仓总量
+result = publicDataAPI.get_open_interest(
+    instType="FUTURES",
+)
+print(result)
 
 # 创建一个OkxClient实例
 #子账户
