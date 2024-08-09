@@ -27,11 +27,13 @@ client = OkxClient(
 )
 
 # 创建一个MarketAPI实例
-market = MarketAPI(client)
+# market = MarketAPI(client)
 
 # 获取指定交易对的最新价格信息
-ticker = market.get_ticker(instId='BTC-USDT')
+# ticker = market.get_ticker(instId='BTC-USDT')
+
+# 打印结果
+# print(ticker)
+# 
 response = client.get_account_balance()
 print(response)
-# 打印结果
-print(ticker)
