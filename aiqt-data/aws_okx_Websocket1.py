@@ -1,6 +1,6 @@
 import websocket
 import json
-from okex import AccountAPI, MarketAPI
+from python-okx import AccountAPI, MarketAPI
 
 
 # 安装websocket库和pythonSDK库：pip install websocket-client okex-python-sdk-api
