@@ -15,14 +15,17 @@ def on_message(ws, message):
     data = json.loads(message)
     if 'table' in data and data['table'] == 'spot/ticker':
         for ticker in data['data']:
-            if ticker['instrument_id'] == 'eth-usd':
-                print(f"ETH/USDT 最新价格: {ticker['last']}")
+            if ticker['instrument_id'] == 'ETH/USDT':
+                print(f"ETH/USDT 最新价格: {ticker}")
 
 def on_error(ws, error):
     print(error)
 
-def on_close(ws, close_status_code, close_msg):
-    print("连接已关闭", close_status_code, close_msg)
+#def on_close(ws, close_status_code, close_msg):
+#    print("连接已关闭", close_status_code, close_msg)
+def on_pong(ws, message):
+    print("连接已关闭", message)
+
 
 def on_open(ws):
     # 订阅ETH/USD的行情数据
