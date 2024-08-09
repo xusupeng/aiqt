@@ -16,7 +16,7 @@ def on_message(ws, message):
     if 'table' in data and data['table'] == 'spot/ticker':
         for ticker in data['data']:
             if ticker['instrument_id'] == 'eth-usd':
-                print(f"ETH/USD 最新价格: {ticker['last']}")
+                print(f"ETH/USDT 最新价格: {ticker['last']}")
 
 def on_error(ws, error):
     print(error)
@@ -28,7 +28,7 @@ def on_open(ws):
     # 订阅ETH/USD的行情数据
     subscribe_message = {
         "op": "subscribe",
-        "args": ["spot/ticker:eth-usd"]
+        "args": ["spot/ticker:ETH/USDT"]
     }
     ws.send(json.dumps(subscribe_message))
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
     # 获取ETH/USD的行情数据
     ticker = market_api.get_ticker('ETH/USDT')
-    #print(f"ETH/USD 最新价格: {ticker['last']}")
+    #print(f"ETH/USDT 最新价格: {ticker['last']}")
     print(f"ETH/USD 最新价格: {ticker}")
     # 获取ETH/USD的深度数据
     #depth = market_api.get_depth('eth-usd', 5)
