@@ -21,7 +21,7 @@ client = OkxClient(
     passphrase=PASSPHRASE,
     use_server_time=True,
     flag="1",
-    base_api=c.API_URL,
+    #base_api=c.API_URL,
     debug=True,
     proxy=None
 )
