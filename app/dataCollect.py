@@ -1,8 +1,8 @@
 import websocket
 import json
 import sys
-sys.path.append('/aiqt/myenv/lib/python3.12/site-packages/okx/')
-from okx.MarketData import MarketAPI
+sys.path.append('./aiqtEnv/lib/python3.12/site-packages/okx')
+from okx.MarketData import MarketAPI    #需要安装：pip3 install python-okx
 # 创建一个OkxClient实例
 #子账户
 #client = OkxClient(api_key="7f27a0b4-ceb3-4e4f-bcf1-f33ce44854d4", api_secret_key="3430205DBFB07579E48EE2063FDB02A0", passphrase="Aiqt@2024")
