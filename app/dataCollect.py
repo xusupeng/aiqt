@@ -17,15 +17,14 @@ publicDataAPI = PublicData.PublicAPI(flag=flag)
 result = publicDataAPI.get_instruments(instType="SWAP")
 #print("获取交易产品基础信息(SWAP永续合约)：%s" % result)
 for i, item in enumerate(result['data']):
-    print("获取交易产品基础信息(SWAP永续合约)：%s" % item)
+    print("获取交易产品基础信息(SWAP永续合约%s)：%s" % (i, item))
     if i >= 5:  break
 
 # 获取持仓总量
 marketDataAPI =  MarketData.MarketAPI(flag=flag)
 # 获取指数行情
 result = marketDataAPI.get_index_tickers(instId="BTC-USD")
-print("获取持仓总量:获取指数行情:BTC-USD:")
-print(result)
+print("获取持仓总量:获取指数行情:BTC-USD:%s" % result)
 
 # 查看账户余额
 # accountAPI = Account.AccountAPI(API_KEY, API_SECRET, PASSPHRASE, False, flag)
