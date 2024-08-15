@@ -26,7 +26,8 @@ marketDataAPI =  MarketData.MarketAPI(flag=flag)
 result = marketDataAPI.get_index_tickers(
     instId="BTC-USD"
 )
-print("获取持仓总量:获取指数行情:" + result)
+print("获取持仓总量:获取指数行情:BTC-USD:")
+print(result)
 
 # 查看账户余额
 accountAPI = Account.AccountAPI(apikey, secretkey, passphrase, False, flag)
