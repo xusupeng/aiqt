@@ -16,7 +16,9 @@ publicDataAPI = PublicData.PublicAPI(flag=flag)
 # 产品类型 SPOT：币币   MARGIN：币币杠杆   SWAP：永续合约   FUTURES：交割合约   OPTION：期权
 result = publicDataAPI.get_instruments(instType="SWAP")
 for i, item in enumerate(result):
-    if i >= 10: break print("获取交易产品基础信息(SWAP永续合约)：" + item)
+    if i >= 10: 
+        break
+        print("获取交易产品基础信息(SWAP永续合约)：" + item)
 
 # 获取持仓总量
 marketDataAPI =  MarketData.MarketAPI(flag=flag)
