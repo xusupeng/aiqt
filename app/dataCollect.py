@@ -17,8 +17,8 @@ publicDataAPI = PublicData.PublicAPI(flag=flag)
 result = publicDataAPI.get_instruments(instType="SWAP")
 for i, item in enumerate(result):
     if i >= 20: 
-        break
         print("获取交易产品基础信息(SWAP永续合约)：" + item)
+        break
 
 # 获取持仓总量
 marketDataAPI =  MarketData.MarketAPI(flag=flag)
