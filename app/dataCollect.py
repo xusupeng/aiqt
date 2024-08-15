@@ -3,11 +3,6 @@ import json
 import sys
 sys.path.append('./aiqtEnv/lib/python3.12/site-packages/okx')
 from okx.MarketData import MarketAPI    #需要安装：pip3 install python-okx
-# 创建一个OkxClient实例
-#子账户
-#client = OkxClient(api_key="7f27a0b4-ceb3-4e4f-bcf1-f33ce44854d4", api_secret_key="3430205DBFB07579E48EE2063FDB02A0", passphrase="Aiqt@2024")
-#主账户
-#client = OkxClient(api_key="f2b08d9f-35c9-4b5d-b3bb-12f00b82a52d", api_secret_key="7CC4B437BAFAE692E7EEC9449FB54FAA", passphrase="Aiqt@2024")
 from okx.okxclient import OkxClient
 from config import API_KEY, API_SECRET, PASSPHRASE
 import okx.PublicData as PublicData

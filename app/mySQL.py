@@ -10,9 +10,9 @@ def create_connection(host_name, user_name, user_password, db_name):
             passwd=user_password,
             database=db_name
         )
-        print("连接数据库aiqt成功！")
+        print("连接数据库%s成功！"%(db_name))
     except Error as e:
-        print(f"连接数据库aiqt失败：'{e}' ")
+        print("连接数据库%s失败：'{e}' "%(db_name))
     return connection
 
 def execute_query(connection, query):
