@@ -30,7 +30,7 @@ print("获取持仓总量:获取指数行情:BTC-USD:")
 print(result)
 
 # 查看账户余额
-accountAPI = Account.AccountAPI(apikey, secretkey, passphrase, False, flag)
+accountAPI = Account.AccountAPI(API_KEY, API_SECRET, PASSPHRASE, False, flag)
 result = accountAPI.get_account_balance()
 print("查看账户余额" + result)
 
