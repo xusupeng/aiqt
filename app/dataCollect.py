@@ -23,17 +23,15 @@ for i, item in enumerate(result):
 # 获取持仓总量
 marketDataAPI =  MarketData.MarketAPI(flag=flag)
 # 获取指数行情
-result = marketDataAPI.get_index_tickers(
-    instId="BTC-USD"
-)
+result = marketDataAPI.get_index_tickers(instId="BTC-USD")
 print("获取持仓总量:获取指数行情:BTC-USD:")
 print(result)
 
 # 查看账户余额
-accountAPI = Account.AccountAPI(API_KEY, API_SECRET, PASSPHRASE, False, flag)
-result = accountAPI.get_account_balance()
-print("查看账户余额")
-print(result)
+# accountAPI = Account.AccountAPI(API_KEY, API_SECRET, PASSPHRASE, False, flag)
+# result = accountAPI.get_account_balance()
+# print("查看账户余额")
+# print(result)
 
 
 
