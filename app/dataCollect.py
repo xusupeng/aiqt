@@ -1,4 +1,4 @@
-import websocket
+import websockets
 import json
 import sys
 sys.path.append('./aiqtEnv/lib/python3.12/site-packages/okx')
