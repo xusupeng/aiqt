@@ -2,5 +2,5 @@
 .git/
 aiqt/
 aiqtEnv/
-
+__pycache__/
 
