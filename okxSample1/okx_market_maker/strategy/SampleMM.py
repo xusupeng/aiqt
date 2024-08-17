@@ -53,6 +53,7 @@ class SampleMM(BaseStrategy):
         sell_num_of_order_each_side = num_of_order_each_side
         max_net_buy = self.params_loader.get_strategy_params("maximum_net_buy")
         max_net_sell = self.params_loader.get_strategy_params("maximum_net_sell")
+        
         if strategy_measurement.net_filled_qty > 0:
             buy_num_of_order_each_side *= max(1 - strategy_measurement.net_filled_qty / max_net_buy, 0)
             buy_num_of_order_each_side = math.ceil(buy_num_of_order_each_side)
@@ -152,7 +153,7 @@ class SampleMM(BaseStrategy):
     to_amend.append(amend_req)
 
         # 返回订单操作请求列表
-        return to_place, to_amend, to_cancel
+return to_place, to_amend, to_cancel
 
 
 
@@ -177,5 +178,3 @@ class SampleMM(BaseStrategy):
 最后，对于剩余的 proposed_orders 和 current_orders，如果长度相等，则根据 proposed_orders 中的价格和数量生成 AmendOrderRequest 订单操作请求。
 
  """
-        """_summary_
-        """
