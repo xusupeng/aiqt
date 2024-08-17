@@ -43,37 +43,49 @@ class BaseStrategy(ABC):
     _strategy_measurement: StrategyMeasurement
     _account_mode: AccountConfigMode = None
 
+    #
     def __init__(self, api_key=API_KEY, api_key_secret=API_KEY_SECRET, api_passphrase=API_PASSPHRASE,
                  is_paper_trading: bool = IS_PAPER_TRADING):
+        # 初始化交易API
         self.trade_api = TradeAPI(api_key=api_key, api_secret_key=api_key_secret, passphrase=api_passphrase,
                                   flag='0' if not is_paper_trading else '1', debug=False)
+        # 初始化状态API
         self.status_api = StatusAPI(flag='0' if not is_paper_trading else '1', debug=False)
+        # 初始化账户API
         self.account_api = AccountAPI(api_key=api_key, api_secret_key=api_key_secret, passphrase=api_passphrase,
                                       flag='0' if not is_paper_trading else '1', debug=False)
+        # 初始化市场数据服务
         self.mds = WssMarketDataService(
             url="wss://ws.okx.com:8443/ws/v5/public?brokerId=9999" if is_paper_trading
             else "wss://ws.okx.com:8443/ws/v5/public",
             inst_id=TRADING_INSTRUMENT_ID,
             channel="books"
         )
+        # 初始化REST市场数据服务
         self.rest_mds = RESTMarketDataService(is_paper_trading)
+        # 初始化订单管理服务
         self.oms = WssOrderManagementService(
             url="wss://ws.okx.com:8443/ws/v5/private?brokerId=9999" if is_paper_trading
             else "wss://ws.okx.com:8443/ws/v5/private")
+        # 初始化仓位管理服务
         self.pms = WssPositionManagementService(
             url="wss://ws.okx.com:8443/ws/v5/private?brokerId=9999" if is_paper_trading
             else "wss://ws.okx.com:8443/ws/v5/private")
+        # 初始化策略订单字典
         self._strategy_order_dict = dict()
+        # 初始化参数加载器
+        self.params_loader = ParamsLoader()
         self.params_loader = ParamsLoader()
 
+    # 策略操作决策，返回下单、改单、撤单请求  # 交易所的订单操作请求    # 交易所的订单操作请求
     @abstractmethod
     def order_operation_decision(self) -> \
             Tuple[List[PlaceOrderRequest], List[AmendOrderRequest], List[CancelOrderRequest]]:
         pass
-
+    # 获取策略订单
     def get_strategy_orders(self) -> Dict[str, StrategyOrder]:
         return self._strategy_order_dict.copy()
-
+    # 获取买策略订单
     def get_bid_strategy_orders(self) -> List[StrategyOrder]:
         """
         Fetch all buy strategy orders inside the BaseStrategy

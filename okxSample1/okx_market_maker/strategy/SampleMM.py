@@ -23,7 +23,7 @@ class SampleMM(BaseStrategy):
     def order_operation_decision(self) -> \
             Tuple[List[PlaceOrderRequest], List[AmendOrderRequest], List[CancelOrderRequest]]:
         """
-        Custom Market Making Logic -> propose a group of market making orders
+        自定义市场做市商逻辑 -> 提出一组做市商订单
         :return:
         """
         # 获取交易对盘口数据
@@ -96,6 +96,11 @@ class SampleMM(BaseStrategy):
         3. if more CO than PO, CANCEL existing orders in CO' tail. i.e. if PO has (a, b), CO has (a1, b1, c1),
         cancel order c1.
         4. For other PO, AMEND existing CO with new price or new size or both.
+        将拟议订单（PO）与当前订单（CO）进行比较，所有订单都具有相同的OrderSide（买入或卖出订单）
+        1.如果订单中的价格-尺寸对存在于CO中，请保持订单完整。
+        2.如果订单多于CO，在订单尾部下新订单。即，如果PO具有（a，b，c），CO具有（a1，b1），为c订单下一个新订单。
+        3.如果CO多于PO，取消CO尾部的现有订单。即，如果PO具有（a，b），CO具有（a1，b1，c1），取消订单c1。
+        4.对于其他订单，以新价格或新尺寸或两者兼而有之的方式修改现有CO。
         :return: Tuple[List[PlaceOrderRequest], List[AmendOrderRequest], List[CancelOrderRequest]]
         """
         # 初始化订单操作请求列表
