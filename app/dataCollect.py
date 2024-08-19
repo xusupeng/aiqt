@@ -1,8 +1,9 @@
 import websockets
 import json
+import os
 import sys
 sys.path.append('./aiqtEnv/lib/python3.12/site-packages/okx')
-from config import API_KEY, API_SECRET, PASSPHRASE
+from app.config import API_KEY, API_SECRET, PASSPHRASE
 
 from okx.okxclient import OkxClient
 import okx.PublicData as PublicData
@@ -21,14 +22,15 @@ flag = "0"  # 实盘:0 , 模拟盘:1
 #    print("获取交易产品基础信息(SWAP永续合约%s)：%s" % (i, item))
 #    if i >= 5:  break
 
-# 获取持仓总量
-marketDataAPI =  MarketData.MarketAPI(flag=flag)
-# 获取所有指数行情
-try:
-    result = marketDataAPI.get_index_tickers(instId="ETH-USD")
-    print("获取行情:ETH-USD:%s" % result)
-except Exception as e:
-    print("获取行情:ETH-USD:%s" % e)
+def dataCollect():
+    # 获取持仓总量
+    marketDataAPI =  MarketData.MarketAPI(flag=flag)
+    # 获取所有指数行情
+    try:
+        result = marketDataAPI.get_index_tickers(instId="ETH-USD")
+        print("获取行情:ETH-USD:%s" % result)
+    except Exception as e:
+        print("获取行情:ETH-USD:%s" % e)
 
 
 
