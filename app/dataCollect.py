@@ -24,10 +24,10 @@ for i, item in enumerate(result['data']):
 marketDataAPI =  MarketData.MarketAPI(flag=flag)
 # 获取所有指数行情
 try:
-    result = marketDataAPI.get_index_tickers(instId="BTC-USD")
-    print("获取所有指数行情:BTC-USD:%s" % result)
+    result = marketDataAPI.get_index_tickers(instId="ETH-USD")
+    print("获取所有指数行情:ETH-USD:%s" % result)
 except Exception as e:
-    print("获取所有指数行情:BTC-USD:%s" % e)
+    print("获取所有指数行情:ETH-USD:%s" % e)
 
 
 
