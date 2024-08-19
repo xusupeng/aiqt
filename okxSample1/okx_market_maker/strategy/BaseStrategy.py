@@ -75,7 +75,7 @@ class BaseStrategy(ABC):
         self._strategy_order_dict = dict()
         # 初始化参数加载器
         self.params_loader = ParamsLoader()
-        self.params_loader = ParamsLoader()
+
 
     # 策略操作决策，返回下单、改单、撤单请求  # 交易所的订单操作请求    # 交易所的订单操作请求
     @abstractmethod
@@ -424,6 +424,7 @@ class BaseStrategy(ABC):
                                                          trading_instrument_type=trading_instrument_type)
 
     def run(self):
+        print("Strategy is running...")
         self._set_account_config()
         self.trading_instrument_type = self.trading_instrument_type()
         InstrumentUtil.get_instrument(TRADING_INSTRUMENT_ID, self.trading_instrument_type)

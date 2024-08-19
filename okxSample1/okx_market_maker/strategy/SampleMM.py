@@ -19,7 +19,7 @@ class SampleMM(BaseStrategy):
     def __init__(self):
         super().__init__()
 
-    # 定义一个名为order_operation_decision的方法，用于根据当前市场数据和策略参数proposed_orders，current_orders，side，instrument生成一组订单操作请求
+    # 定义方法，用于根据当前市场数据和策略参数proposed_orders，current_orders，side，instrument生成一组订单操作请求
     def order_operation_decision(self) -> \
             Tuple[List[PlaceOrderRequest], List[AmendOrderRequest], List[CancelOrderRequest]]:
         """
@@ -159,27 +159,3 @@ class SampleMM(BaseStrategy):
 
         # 返回订单操作请求列表
 return to_place, to_amend, to_cancel
-
-
-
-""" 
- XXXX
-这段代码是一个名为`SampleMM`的市场做市商策略类，继承自`BaseStrategy`。
-`SampleMM`类中定义了一个名为`order_operation_decision`的方法，
-用于根据当前市场数据和策略参数 proposed_orders，current_orders，side，instrument 生成一组订单操作请求。
-
-首先，从`order_book`中获取买一和卖一的价格和数量，然后根据策略参数计算出 proposed_buy_orders 和 proposed_sell_orders。
-接着，将 proposed_buy_orders 和 proposed_sell_orders 按照 instrument 的价格和数量进行调整，得到 adjusted_buy_orders 和 adjusted_sell_orders。
-
-然后，比较 adjusted_buy_orders 和 current_buy_orders，根据比较结果生成 buy_to_place，buy_to_amend 和 buy_to_cancel 订单操作请求。
-同样地，比较 adjusted_sell_orders 和 current_sell_orders，根据比较结果生成 sell_to_place，sell_to_amend 和 sell_to_cancel 订单操作请求。
-
-最后，将 buy_to_place，buy_to_amend 和 buy_to_cancel 合并返回。
-
-`get_req`方法用于比较 proposed_orders 和 current_orders，根据比较结果生成订单操作请求。
-首先，从 proposed_orders 中移除已经在 current_orders 中的订单。
-然后，对于剩余的 proposed_orders，如果长度大于 current_orders，则生成 PlaceOrderRequest 订单操作请求。
-对于剩余的 current_orders，如果长度大于 proposed_orders，则生成 CancelOrderRequest 订单操作请求。
-最后，对于剩余的 proposed_orders 和 current_orders，如果长度相等，则根据 proposed_orders 中的价格和数量生成 AmendOrderRequest 订单操作请求。
-
- """
