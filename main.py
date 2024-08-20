@@ -20,5 +20,5 @@ async def read_item(item_id: int, q: Union[str, None] = None):
 
 @app.get("/dataCollect")
 async def dataCollect():
-    dataCollect()
-    return {"message": "dataCollect!"}
+    result = dataCollect()
+    return {"message": result}

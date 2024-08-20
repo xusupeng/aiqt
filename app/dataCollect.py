@@ -29,6 +29,7 @@ def dataCollect():
     try:
         result = marketDataAPI.get_index_tickers(instId="ETH-USD")
         print("获取行情:ETH-USD:%s" % result)
+        return result
     except Exception as e:
         print("获取行情:ETH-USD:%s" % e)
 
