@@ -3,7 +3,7 @@ import sys
 sys.path.append('./aiqtEnv/lib/python3.12/site-packages/')
 from typing import Union
 from fastapi import FastAPI
-from app.dataCollect import dataCollect
+#from app.dataCollect import dataCollect
 
 
 app = FastAPI()
