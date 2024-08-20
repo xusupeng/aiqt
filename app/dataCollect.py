@@ -3,7 +3,8 @@ import json
 import os
 import sys
 sys.path.append('./aiqtEnv/lib/python3.12/site-packages/okx')
-from app.config import API_KEY, API_SECRET, PASSPHRASE
+sys.path.append('./aiqtEnv/Lib/site-packages/okx')
+from config import API_KEY, API_SECRET, PASSPHRASE
 
 from okx.okxclient import OkxClient
 import okx.PublicData as PublicData
@@ -29,7 +30,7 @@ def dataCollect():
     try:
         result = marketDataAPI.get_index_tickers(instId="ETH-USD")
         print("获取行情:ETH-USD:%s" % result)
-        return result
+        #return result
     except Exception as e:
         print("获取行情:ETH-USD:%s" % e)
 
