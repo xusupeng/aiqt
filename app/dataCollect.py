@@ -4,6 +4,7 @@ import os
 import sys
 sys.path.append('./aiqtEnv/lib/python3.12/site-packages/okx')
 sys.path.append('./aiqtEnv/Lib/site-packages/okx')
+sys.path.append('./app')
 from config import API_KEY, API_SECRET, PASSPHRASE
 
 from okx.okxclient import OkxClient
