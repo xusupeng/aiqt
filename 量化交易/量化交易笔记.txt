@@ -1,0 +1,10 @@
+量化交易开源框架
+
+vn.py  开源框架
+ptrade   恒生   在线服务器
+qmt  讯投   本地数据 库
+
+天勤  收费产品
+backTrader   开源加测，自搭数据 源
+
+wonderTrader

@@ -1,0 +1,49 @@
+https://aws.amazon.com/cn/campaigns/aws-cloudserver-ps/?sc_channel=PS&sc_campaign=acquisition_CN&sc_publisher=baidu&sc_category=pc&sc_medium=%E5%93%81%E7%89%8C%E9%80%9A%E7%94%A8_%E6%9C%8D%E5%8A%A1%E5%99%A8_b&sc_content=%E6%9C%8D%E5%8A%A1%E5%99%A8_%E8%B4%AD%E4%B9%B0_%E7%9F%AD&sc_detail=%E4%BA%9A%E9%A9%AC%E9%80%8A%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%80%8E%E4%B9%88%E8%B4%AD%E4%B9%B0&sc_segment=JK-AWS%20b2&sc_matchtype=phrase&sc_country=CN&trk=dc245e7d-1692-42b2-a8f8-ceeaf6f3b930&s_kwcid=AL!4422!88!55732011449!!267223068252&ef_id=ZoQTuwAAAZqO-H5R:20240702145035:s
+
+新登录方式：   IAM 用户登录： （不能登录）
+账户 ID（12 位数）或账户别名：891377364164
+IAM 用户名： diaodiao        密码：Abdj80626@
+可用电子邮件登录：Aws账号：58811708@qq.com 密码：同上
+
+自动分配的 IP 地址：35.175.245.164 [公有 IP]
+服务器机房：美国东部 (弗吉尼亚北部)  us-east-1
+
+公有 IPv4 DNS： ec2-35-175-245-164.compute-1.amazonaws.com
+HTTP服务：通常使用端口80。
+HTTPS服务：通常使用端口443，这是HTTP服务的加密版本。
+FTP服务：使用端口21。
+SSH服务：通常使用端口22，用于安全远程登录。
+FastAPI服务端口：8000
+
+服务器：RSA 秘钥对
+
+实例ID： i-0085877f48d5311c1   Name: dowin   实例类型：t2.micro
+可用区: us-east-1a    公有 IPv4 地址:  35.175.245.164   私有 IPv4 地址:  172.31.80.85
+
+公有 IPv4 DNS:      ec2-35-175-245-164.compute-1.amazonaws.com
+
+
+实例 ID
+
+i-0085877f48d5311c1 (dowin)
+打开 SSH 客户端。
+查找您的私有密钥文件。用于启动此实例的密钥为 dowin.pem
+如有需要，运行此命令，以确保您的密钥不公开可见。
+chmod 400 "dowin.pem"
+通过其 公有 DNS 连接到您的实例:
+ec2-35-175-245-164.compute-1.amazonaws.com
+
+首次使用用户 ubuntu 登录后，若需要转到 root 用户，使用命令：  sudo -i   ，不需要使用和修改密码：  passwd root
+
+登录用户名： ubuntu    IP地址： 35.175.245.164    
+   root@ip-172-31-80-85
+密钥文件地址：file://C:\Users\DoWin\Desktop\AWS服务器\RSA秘钥对\dowin.pem
+root用户密码已改为：Abdj80626@
+
+数据库mysql 8.0.4    systemctl stop mysql 
+# systemctl start mysql     # mysql -u root -p    输入密码：Dowin@2011
+show databases;
+
+
+
+
