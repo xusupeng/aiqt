@@ -21,6 +21,6 @@ if __name__ == "__main__":
     #    dataCollect()
     #    return {"message": "dataCollect!"}
 
-    os.environ["AIQT_ENV"] = "production"
+    os.environ["aiqtEnv"] = "production"
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
