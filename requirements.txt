@@ -1,3 +1,10 @@
+# 精确版本：PackageName==1.2.3
+# 大于等于某个版本：PackageName>=1.2.3
+# 最大版本（不包括更大的主版本）：PackageName~=1.2.3
+# 如果你不指定版本号，pip默认会安装最新版本的库。
+# 但是，这通常不是推荐的做法，因为它可能会带来兼容性问题。
+
+# python：
 python>=3.9.0
 mysql-connector-python>=9.0.0
 websockets>=6.0
@@ -9,8 +16,18 @@ autobahn>=23.1.2
 shortuuid>=1.0.11
 Twisted>=22.10.0
 PyYAML>=6.0
-
+# FastAPI 的安装 pip install fastapi 
+# Uvicorn 的安装 pip install uvicorn
 fastapi
 uvicorn
+#安装 pip install backtrader
 backtrader
+Matplotlib >= 1.4.1
+# pip install backtrader[plotting]
+# 这将拉入 matplotlib，而 matplotlib 又会拉入其他依赖项 
 
+
+import asyncio
+import backtrader as bt
+from fastapi import FastAPI
+import aiohttp
