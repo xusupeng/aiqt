@@ -43,7 +43,7 @@ class DataCollect():
 
 
     # 查看账户余额
-    def accountBalance():
+    async def accountBalance():
         accountAPI = Account.AccountAPI(API_KEY, API_SECRET, PASSPHRASE, False, flag)
         result = accountAPI.get_account_balance()
         return result
