@@ -61,7 +61,7 @@ async def marketData():
 
 
 # 启动策略的API端点
-@app.post("/start_strategy/")
+@app.post("/start_Strategy")
 async def start_strategy():
     global strategy_running, cerebro_instance
     if not strategy_running:
@@ -72,7 +72,7 @@ async def start_strategy():
         return {"message": "Strategy策略正在运行中，不需要再启动！"}
 
 # 停止策略的API端点
-@app.post("/stop_strategy/")
+@app.post("/stop_Strategy")
 async def stop_strategy():
     global strategy_running
     if strategy_running:
