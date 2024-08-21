@@ -25,8 +25,7 @@ class DataCollect():
                 if i >= 5:  
                     return item
                     break
-                return item
-            return result
+            return result[0]
         except Exception as e:
             return "publicData错误： %s" % e
 
