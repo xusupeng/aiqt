@@ -1,7 +1,0 @@
-python-okx>=0.1.9
-
-
-okx_api
-okx_sdk
-okx_trade
-
