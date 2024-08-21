@@ -44,7 +44,7 @@ async def read_item(item_id: int, q: Union[str, None] = None):
 @app.get("/publicData")
 async def publicData():
     result = DataCollect.publicData()
-    return {"DataCollect.publicData: %s" %result}
+    return {result}
 
 # 查询市场数据ETH-USD
 @app.get("/marketData")
