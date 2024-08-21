@@ -55,7 +55,7 @@ async def marketData():
 # 查看账户余额
 @app.get("/accountBalance")
 async def accountBalance():
-    result = await DataCollect.accountBalance()
+    result = DataCollect.accountBalance()
     return str(result)
 
 
