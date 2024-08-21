@@ -23,9 +23,9 @@ class DataCollect():
             result = publicDataAPI.get_instruments(instType="SWAP")
             for i, item in enumerate(result['data']):
                 if i >= 5:  
-                    return f"获取交易产品基础信息第 5 项：{item}"
+                    return item
                     break
-                return f"获取交易产品基础信息第 0 项：{item}"
+                return item
             return result
         except Exception as e:
             return "publicData错误： %s" % e
