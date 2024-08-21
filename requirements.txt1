@@ -1,0 +1,33 @@
+# 精确版本：PackageName==1.2.3
+# 大于等于某个版本：PackageName>=1.2.3
+# 最大版本（不包括更大的主版本）：PackageName~=1.2.3
+# 如果你不指定版本号，pip默认会安装最新版本的库。
+# 但是，这通常不是推荐的做法，因为它可能会带来兼容性问题。
+# 用依赖文件requirements.txt来指定项目的依赖项，
+# 这样可以确保所有人都使用相同的库版本。
+# 你可以使用 pip install -r requirements.txt 来安装所有依赖项。
+
+mysql-connector-python
+websockets 
+websockets
+requests
+pandas
+numpy   
+python-okx
+autobahn
+shortuuid
+Twisted
+PyYAML
+# FastAPI 的安装 pip install fastapi 
+# Uvicorn 的安装 pip install uvicorn
+fastapi
+uvicorn
+asyncio
+aiohttp
+
+# 安装 pip install backtrader
+backtrader
+Matplotlib
+# pip install backtrader[plotting]
+# 这将拉入 matplotlib，而 matplotlib 又会拉入其他依赖项 
+

@@ -6,7 +6,6 @@ sys.path.append('./aiqtEnv/lib/python3.12/site-packages/')
 sys.path.append('./aiqtEnv/Lib/site-packages/')
 from typing import Union
 from fastapi import FastAPI
-from app.test import Test
 from app.dataCollect import DataCollect
 
 app = FastAPI()
@@ -20,11 +19,6 @@ async def hello():
 async def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
-@app.get("/test1")
-async def testtt():
-    # result = await asyncio.gather(dataCollect())
-    result = Test.test1()
-    return {"message": result}
 
 # 查询公共数据中的BTC-USD代码
 @app.get("/publicData")

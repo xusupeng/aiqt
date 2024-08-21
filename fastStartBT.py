@@ -1,8 +1,13 @@
-from fastapi import FastAPI
-import backtrader as bt
-import threading
 import asyncio
-
+import backtrader as bt
+from fastapi import FastAPI
+import aiohttp
+import os
+import sys
+sys.path.append('./aiqtEnv/lib/python3.12/site-packages/')
+sys.path.append('./aiqtEnv/Lib/site-packages/')
+from typing import Union
+from app.dataCollect import DataCollect
 app = FastAPI()
 
 # 定义一个全局变量来存储策略的状态
@@ -12,10 +17,10 @@ strategy_running = False
 cerebro_instance = None
 
 # 定义一个函数来启动策略
-def run_strategy():
+async def run_strategy():
     global strategy_running, cerebro_instance
     cerebro = bt.Cerebro()
-    print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
+    print('tarting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     
     # 这里添加你的策略和数据源等设置
     # cerebro.addstrategy(YourStrategy)
@@ -26,14 +31,42 @@ def run_strategy():
     print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
     strategy_running = False
 
+@app.get("/")
+async def hello():
+    return {"message": "Hello, AIQT!"}
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
+
+
+# 查询公共数据中的BTC-USD代码
+@app.get("/publicData")
+async def publicData():
+    result = DataCollect.publicData()
+    return {"DataCollect.publicData: %s" %result}
+
+# 查询市场数据ETH-USD
+@app.get("/marketData")
+async def marketData():
+    result = DataCollect.marketData()
+    return {"DataCollect.marketData: %s" %result}
+
+# 查看账户余额
+@app.get("/accountBalance")
+async def marketData():
+    result = DataCollect.accountBalance()
+    return {"DataCollect.accountBalance: %s" %result}
+
+
+
 # 启动策略的API端点
 @app.post("/start_strategy/")
 async def start_strategy():
     global strategy_running, cerebro_instance
     if not strategy_running:
         strategy_running = True
-        cerebro_instance = bt.Cerebro()
-        threading.Thread(target=run_strategy).start()
+        await run_strategy()
         return {"message": "Strategy策略已经启动！"}
     else:
         return {"message": "Strategy策略正在运行中，不需要再启动！"}
@@ -54,3 +87,4 @@ async def stop_strategy():
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
