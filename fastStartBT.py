@@ -56,7 +56,7 @@ async def marketData():
 @app.get("/accountBalance")
 async def accountBalance():
     result = DataCollect.accountBalance()
-    return str(result)
+    return result
 
 
 
