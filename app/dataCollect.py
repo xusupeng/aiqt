@@ -25,7 +25,7 @@ class DataCollect():
                 if i >= 5:  
                     return item
                     break
-            return result['data']
+            return result
         except Exception as e:
             return "publicData错误： %s" % e
 
@@ -34,7 +34,7 @@ class DataCollect():
         # 获取 ETH-USD 指数行情
         try:
             result = marketDataAPI.get_index_tickers(instId="ETH-USD")
-            return f"获取 ETH-USD 指数行情：{result}"
+            return result
         except Exception as e:
             return ("错误: %s" % e)
 

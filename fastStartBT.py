@@ -43,14 +43,12 @@ async def read_item(item_id: int, q: Union[str, None] = None):
 # 查询公共数据中的BTC-USD代码
 @app.get("/publicData")
 async def publicData():
-    result = DataCollect.publicData()
-    return {result}
+    return DataCollect.publicData()
 
 # 查询市场数据ETH-USD
 @app.get("/marketData")
 async def marketData():
-    result = DataCollect.marketData()
-    return {"DataCollect.marketData: %s" %result}
+    return DataCollect.marketData()
 
 # 查看账户余额
 @app.get("/accountBalance")
