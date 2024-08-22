@@ -1,13 +1,14 @@
 import asyncio
 import backtrader as bt
 import aiohttp
+import datetime  # For datetime objects
+import os.path  # To manage paths
+import sys  # To find out the script name (in argv[0])
 import os
-import sys
 sys.path.append('./aiqtEnv/lib/python3.12/site-packages/')
 sys.path.append('./aiqtEnv/Lib/site-packages/')
 from typing import Union
 from app.dataCollect import DataCollect
-
 
 # 定义一个全局变量来存储策略的状态
 strategy_running = False
@@ -44,15 +45,34 @@ class MyStrategy(bt.Strategy):
     def run_strategy():
         global strategy_running, cerebro_instance
         cerebro = bt.Cerebro()
+
         cerebro.broker.setcash(150000.0) # 设置初始资金
         print('tarting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     
         # 这里添加你的策略和数据源等设置
         # cerebro.addstrategy(YourStrategy)
-        # cerebro.adddata(YourDataFeed)
+        cerebro.adddata(self.getData()) # 添加数据源
 
         cerebro.run()
     
         print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
         strategy_running = False
+    
+    def getData(self):  # 获取数据
+        # 数据位于samples的子文件夹中。需要找到脚本的位置，因为它可能从任何地方被调用
+        modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
+        datapath = os.path.join(modpath, '../../datas/orcl-1995-2014.txt')
+
+        # 创建一个数据源
+        data = bt.feeds.YahooFinanceCSVData(
+            dataname=datapath,
+            # 不传递此日期之前的值
+            fromdate=datetime.datetime(2000, 1, 1),
+            # 不传递此日期之后的值
+            todate=datetime.datetime(2000, 12, 31),
+            reverse=False)
+
+        # 将数据源添加到Cerebro
+        return data
+
 
