@@ -1,14 +1,5 @@
-<<<<<<< HEAD
 import asyncio
 from fastapi import FastAPI
-=======
-import logging
-import asyncio
-import backtrader as bt
-from fastapi import FastAPI, HTTPException
-import threading
-from threading import Lock
->>>>>>> origin/master
 import aiohttp
 import os
 import sys
@@ -16,23 +7,12 @@ sys.path.append('./aiqtEnv/lib/python3.12/site-packages/')
 sys.path.append('./aiqtEnv/Lib/site-packages/')
 from typing import Union
 from app.dataCollect import DataCollect
-<<<<<<< HEAD
 #from app.bt_Strategy_Start import MyStrategy
 import backtrader as bt
 
 app = FastAPI()
 
 
-=======
-from app.myStrategy import MyStrategy
-
-
-app = FastAPI()
-
-@app.get("/")
-async def hello():
-    return {"message": "Hello, AIQT!"}
->>>>>>> origin/master
 
 # 定义一个全局变量来存储策略的状态
 strategy_running = False
@@ -99,7 +79,3 @@ async def stop_strategy():
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
