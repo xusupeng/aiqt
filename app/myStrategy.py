@@ -9,6 +9,7 @@ sys.path.append('./aiqtEnv/lib/python3.12/site-packages/')
 sys.path.append('./aiqtEnv/Lib/site-packages/')
 from typing import Union
 from app.dataCollect import DataCollect
+from app.myStrategy_Test1 import TestStrategy
 
 # 定义一个全局变量来存储策略的状态
 strategy_running = False
@@ -78,7 +79,7 @@ class MyStrategy(bt.Strategy):
         return data
 
 # Create a Stratey
-class TestStrategy(bt.Strategy):
+class TestStrategy_Old(bt.Strategy):
 
     def log(self, txt, dt=None):
         ''' Logging function for this strategy'''
