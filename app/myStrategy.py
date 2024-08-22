@@ -46,11 +46,12 @@ class MyStrategy(bt.Strategy):
         global strategy_running, cerebro_instance
         cerebro = bt.Cerebro()
 
-        cerebro.broker.setcash(150000.0) # 设置初始资金
+        cerebro.broker.setcash(100000.0) # 设置初始资金
         print('tarting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     
         # 这里添加你的策略和数据源等设置
         # cerebro.addstrategy(YourStrategy)
+        cerebro.addstrategy(TestStrategy) # 添加策略
         cerebro.adddata(MyStrategy.getData()) # 添加数据源
 
         cerebro.run()
@@ -76,4 +77,18 @@ class MyStrategy(bt.Strategy):
         # 将数据源添加到Cerebro
         return data
 
+# Create a Stratey
+class TestStrategy(bt.Strategy):
 
+    def log(self, txt, dt=None):
+        ''' Logging function for this strategy'''
+        dt = dt or self.datas[0].datetime.date(0)
+        print('%s, %s' % (dt.isoformat(), txt))
+
+    def __init__(self):
+        # Keep a reference to the "close" line in the data[0] dataseries
+        self.dataclose = self.datas[0].close
+
+    def next(self):
+        # Simply log the closing price of the series from the reference
+        self.log('Close, %.2f' % self.dataclose[0])
