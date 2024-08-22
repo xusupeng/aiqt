@@ -7,7 +7,7 @@ sys.path.append('./aiqtEnv/lib/python3.12/site-packages/')
 sys.path.append('./aiqtEnv/Lib/site-packages/')
 from typing import Union
 from app.dataCollect import DataCollect
-from app.strategy import run_strategy
+from app.bt_Strategy_Start import MyStrategy
 app = FastAPI()
 
 # 查询公共数据中的BTC-USD代码
@@ -32,7 +32,7 @@ async def start_strategy():
     global strategy_running, cerebro_instance
     if not strategy_running:
         strategy_running = True
-        await run_strategy()
+        await MyStrategy.run_strategy()
         return {"message": "Strategy策略已经启动！"}
     else:
         return {"message": "Strategy策略正在运行中，不需要再启动！"}
