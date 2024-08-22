@@ -12,7 +12,7 @@ import backtrader as bt
 
 app = FastAPI()
 
-def run_strategy():
+async def run_strategy():
     global strategy_running, cerebro_instance
     cerebro = bt.Cerebro()
     print('tarting Portfolio Value: %.2f' % cerebro.broker.getvalue())
@@ -50,7 +50,7 @@ async def start_strategy():
     global strategy_running, cerebro_instance
     if not strategy_running:
         strategy_running = True
-        run_strategy()
+        await run_strategy()
         return {"message": "Strategy策略已经启动！"}
     else:
         return {"message": "Strategy策略正在运行中，不需要再启动！"}
