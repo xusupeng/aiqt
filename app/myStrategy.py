@@ -44,6 +44,7 @@ class MyStrategy(bt.Strategy):
     def run_strategy():
         global strategy_running, cerebro_instance
         cerebro = bt.Cerebro()
+        cerebro.broker.setcash(150000.0) # 设置初始资金
         print('tarting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     
         # 这里添加你的策略和数据源等设置
