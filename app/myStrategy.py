@@ -51,14 +51,15 @@ class MyStrategy(bt.Strategy):
     
         # 这里添加你的策略和数据源等设置
         # cerebro.addstrategy(YourStrategy)
-        cerebro.adddata(self.getData()) # 添加数据源
+        cerebro.adddata(MyStrategy.getData()) # 添加数据源
 
         cerebro.run()
     
         print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
         strategy_running = False
     
-    def getData(self):  # 获取数据
+    @staticmethod
+    def getData():  # 获取数据
         # 数据位于samples的子文件夹中。需要找到脚本的位置，因为它可能从任何地方被调用
         modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
         datapath = os.path.join(modpath, './bianance_eth_usd_ohlcv.csv') # 数据文件路径
