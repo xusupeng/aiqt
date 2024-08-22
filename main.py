@@ -1,39 +1,56 @@
-
-import os
 import asyncio
+from fastapi import FastAPI
+import aiohttp
+import os
 import sys
 sys.path.append('./aiqtEnv/lib/python3.12/site-packages/')
 sys.path.append('./aiqtEnv/Lib/site-packages/')
 from typing import Union
-from fastapi import FastAPI
 from app.dataCollect import DataCollect
-
+from app.strategy import run_strategy
 app = FastAPI()
-
-
-@app.get("/")
-async def hello():
-    return {"message": "Hello, AIQT!"}
-
-@app.get("/items/{item_id}")
-async def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
 
 # 查询公共数据中的BTC-USD代码
 @app.get("/publicData")
 async def publicData():
-    result = DataCollect.publicData()
-    return {"DataCollect.publicData: %s" %result}
+    return DataCollect.publicData()
 
 # 查询市场数据ETH-USD
 @app.get("/marketData")
 async def marketData():
-    result = DataCollect.marketData()
-    return {"DataCollect.marketData: %s" %result}
+    return DataCollect.marketData()
 
 # 查看账户余额
 @app.get("/accountBalance")
-async def marketData():
+async def accountBalance():
     result = DataCollect.accountBalance()
-    return {"DataCollect.accountBalance: %s" %result}
+    return result
+
+# 启动策略的API端点
+@app.post("/start_Strategy")
+async def start_strategy():
+    global strategy_running, cerebro_instance
+    if not strategy_running:
+        strategy_running = True
+        await run_strategy()
+        return {"message": "Strategy策略已经启动！"}
+    else:
+        return {"message": "Strategy策略正在运行中，不需要再启动！"}
+
+# 停止策略的API端点
+@app.post("/stop_Strategy")
+async def stop_strategy():
+    global strategy_running
+    if strategy_running:
+        # 这里需要你实现停止策略的逻辑，Backtrader没有内置的停止机制，
+        # 因此这可能需要你根据实际情况来实现，例如通过修改某个变量来中断循环
+        strategy_running = False
+        return {"message": "Strategy已经停止！"}
+    else:
+        return {"message": "Strategy未运行，不需要停止！"}
+
+# 运行FastAPI应用
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
