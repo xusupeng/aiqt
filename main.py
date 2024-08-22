@@ -72,7 +72,6 @@ async def accountBalance():
     result = DataCollect.accountBalance()
     return result
 
-<<<<<<< HEAD
 # 启动策略的API端点
 @app.post("/start_Strategy")
 async def start_strategy():
@@ -83,36 +82,6 @@ async def start_strategy():
         return {"message": "Strategy策略已经启动！"}
     else:
         return {"message": "Strategy策略正在运行中，不需要再启动！"}
-=======
-
-# 设置日志
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-# 确保在模块级别声明了 strategy_running、cerebro_instance 和锁
-strategy_running = False
-cerebro_instance = None
-lock = Lock()
-# 启动策略的API端点
-@app.post("/start_Strategy")
-def start_strategy():
-    global strategy_running, cerebro_instance
-    if strategy_running:
-        return {"message": "策略已经启动，不需要再启动!"}
-    else:
-        try:
-            with lock:  # 使用锁来确保线程安全
-                if strategy_running:
-                    return {"message": "策略已经在运行中。"}
-                strategy_running = True
-                strategy_thread = threading.Thread(target=MyStrategy.run_strategy)
-                strategy_thread.start()
-                logger.info("策略启动成功。")
-                return {"message": "策略已经启动!"}
-        except Exception as e:
-            logger.error(f"策略启动失败: {str(e)}")
-            raise HTTPException(status_code=500, detail=str(e))
-            return {"message": f"策略启动失败: {str(e)}"} 
->>>>>>> origin/master
 
 # 停止策略的API端点
 @app.post("/stop_Strategy")
