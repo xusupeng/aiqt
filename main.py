@@ -28,11 +28,11 @@ async def accountBalance():
 
 # 启动策略的API端点
 @app.post("/start_Strategy")
-def start_strategy():
+async def start_strategy():
     global strategy_running, cerebro_instance
     if not strategy_running:
         strategy_running = True
-        MyStrategy.run_strategy()
+        await MyStrategy.run_strategy()
         return {"message": "Strategy策略已经启动！"}
     else:
         return {"message": "Strategy策略正在运行中，不需要再启动！"}
