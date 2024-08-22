@@ -1,7 +1,9 @@
+import logging
 import asyncio
 import backtrader as bt
 from fastapi import FastAPI, HTTPException
 import threading
+from threading import Lock
 import aiohttp
 import os
 import sys
@@ -40,9 +42,13 @@ async def accountBalance():
     return result
 
 
-# 确保在模块级别声明了 strategy_running 和 cerebro_instance
+# 设置日志
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+# 确保在模块级别声明了 strategy_running、cerebro_instance 和锁
 strategy_running = False
 cerebro_instance = None
+lock = Lock()
 # 启动策略的API端点
 @app.post("/start_Strategy")
 def start_strategy():
@@ -51,14 +57,18 @@ def start_strategy():
         return {"message": "策略已经启动，不需要再启动!"}
     else:
         try:
-            # 创建一个线程来运行 Backtrader 策略
-            strategy_thread = threading.Thread(target=MyStrategy.run_strategy)
-            strategy_thread.start()
-            strategy_running = True
-            return {"message": "策略已经启动!"}
+            with lock:  # 使用锁来确保线程安全
+                if strategy_running:
+                    return {"message": "策略已经在运行中。"}
+                strategy_running = True
+                strategy_thread = threading.Thread(target=MyStrategy.run_strategy)
+                strategy_thread.start()
+                logger.info("策略启动成功。")
+                return {"message": "策略已经启动!"}
         except Exception as e:
-            # 如果发生异常，返回具体的错误信息
-            return {"message": f"策略启动失败: {str(e)}"}
+            logger.error(f"策略启动失败: {str(e)}")
+            raise HTTPException(status_code=500, detail=str(e))
+            return {"message": f"策略启动失败: {str(e)}"} 
 
 # 停止策略的API端点
 @app.post("/stop_Strategy")
@@ -76,4 +86,3 @@ async def stop_strategy():
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
