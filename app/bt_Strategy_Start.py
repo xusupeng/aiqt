@@ -13,7 +13,7 @@ cerebro_instance = None
 
 class MyStrategy(bt.Strategy):
     # 定义一个函数来启动策略
-    async def run_strategy():
+    def run_strategy():
         global strategy_running, cerebro_instance
         cerebro = bt.Cerebro()
         print('tarting Portfolio Value: %.2f' % cerebro.broker.getvalue())
@@ -22,7 +22,7 @@ class MyStrategy(bt.Strategy):
         # cerebro.addstrategy(YourStrategy)
         # cerebro.adddata(YourDataFeed)
 
-        await cerebro.run()
+        cerebro.run()
     
         print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
         strategy_running = True
