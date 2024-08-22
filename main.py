@@ -7,8 +7,26 @@ sys.path.append('./aiqtEnv/lib/python3.12/site-packages/')
 sys.path.append('./aiqtEnv/Lib/site-packages/')
 from typing import Union
 from app.dataCollect import DataCollect
-from app.bt_Strategy_Start import MyStrategy
+#from app.bt_Strategy_Start import MyStrategy
+import backtrader as bt
+
 app = FastAPI()
+
+def run_strategy():
+    global strategy_running, cerebro_instance
+    cerebro = bt.Cerebro()
+    print('tarting Portfolio Value: %.2f' % cerebro.broker.getvalue())
+    
+    # 这里添加你的策略和数据源等设置
+    # cerebro.addstrategy(YourStrategy)
+    # cerebro.adddata(YourDataFeed)
+
+    cerebro.run()
+    
+    print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+    strategy_running = True
+
+
 
 # 查询公共数据中的BTC-USD代码
 @app.get("/publicData")
@@ -32,7 +50,7 @@ async def start_strategy():
     global strategy_running, cerebro_instance
     if not strategy_running:
         strategy_running = True
-        MyStrategy.run_strategy()
+        run_strategy()
         return {"message": "Strategy策略已经启动！"}
     else:
         return {"message": "Strategy策略正在运行中，不需要再启动！"}
