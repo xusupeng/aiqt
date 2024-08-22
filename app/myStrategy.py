@@ -1,6 +1,5 @@
 import asyncio
 import backtrader as bt
-from fastapi import FastAPI
 import aiohttp
 import os
 import sys
@@ -8,7 +7,7 @@ sys.path.append('./aiqtEnv/lib/python3.12/site-packages/')
 sys.path.append('./aiqtEnv/Lib/site-packages/')
 from typing import Union
 from app.dataCollect import DataCollect
-app = FastAPI()
+
 
 # 定义一个全局变量来存储策略的状态
 strategy_running = False
@@ -40,8 +39,9 @@ class MyStrategy(bt.Strategy):
         print('SMA, %.2f' % self.sma[0])
         print('')
 
-    # 定义一个异步函数来运行策略
-    async def run_strategy():
+    # 定义一个静态函数来运行策略
+    @staticmethod
+    def run_strategy():
         global strategy_running, cerebro_instance
         cerebro = bt.Cerebro()
         print('tarting Portfolio Value: %.2f' % cerebro.broker.getvalue())

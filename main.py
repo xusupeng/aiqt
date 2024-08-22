@@ -46,7 +46,7 @@ async def start_strategy():
     if not strategy_running:
         strategy_running = True
         # 这里使用asyncio.create_task来异步运行run_strategy函数
-        await MyStrategy.run_strategy()
+        MyStrategy.run_strategy()
         return {"message": "Strategy策略已经启动！"}
     else:
         return {"message": "Strategy策略正在运行中，不需要再启动！"}
