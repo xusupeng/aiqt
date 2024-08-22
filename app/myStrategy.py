@@ -62,7 +62,7 @@ class MyStrategy(bt.Strategy):
     def getData():  # 获取数据
         # 数据位于samples的子文件夹中。需要找到脚本的位置，因为它可能从任何地方被调用
         modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
-        datapath = os.path.join(modpath, 'bianance_eth_usd_ohlcv.csv') # 数据文件路径
+        datapath = os.path.join(modpath, 'biance_eth_usd_ohlcv.csv') # 数据文件路径
 
         # 创建一个数据源
         data = bt.feeds.YahooFinanceCSVData(
