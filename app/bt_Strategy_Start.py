@@ -1,4 +1,4 @@
-import acyncio
+import asyncio
 import backtrader as bt
 
 
