@@ -22,7 +22,7 @@ class MyStrategy(bt.Strategy):
         # cerebro.addstrategy(YourStrategy)
         # cerebro.adddata(YourDataFeed)
 
-        cerebro.run()
+        await cerebro.run()
     
         print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-        strategy_running = False
+        strategy_running = True
