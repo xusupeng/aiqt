@@ -21,6 +21,7 @@ class DataCollect():
             # 获取交易产品基础信息  
             # 产品类型 SPOT：币币   MARGIN：币币杠杆   SWAP：永续合约   FUTURES：交割合约   OPTION：期权
             result = publicDataAPI.get_instruments(instType="SWAP")
+            return result
             for i, item in enumerate(result['data']):
                 if i >= 5:  
                     return item
