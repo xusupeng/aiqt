@@ -1,118 +1,117 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
-import datetime  # For datetime objects
-import os.path  # To manage paths
-import sys  # To find out the script name (in argv[0])
+import datetime  # 用于日期时间对象
+import os.path  # 用于管理路径
+import sys  # 用于找出脚本名称（在argv[0]中）
 
-# Import the backtrader platform
+# 导入backtrader平台
 import backtrader as bt
 
-
-# Create a Stratey
+# 创建一个策略
 class TestStrategy(bt.Strategy):
 
     def log(self, txt, dt=None):
-        ''' Logging function fot this strategy'''
+        '''记录此策略的日志函数'''
         dt = dt or self.datas[0].datetime.date(0)
         print('%s, %s' % (dt.isoformat(), txt))
 
     def __init__(self):
-        # Keep a reference to the "close" line in the data[0] dataseries
+        # 保留对data[0]数据系列中“收盘”行的引用
         self.dataclose = self.datas[0].close
 
-        # To keep track of pending orders
+        # 用于跟踪待处理的订单
         self.order = None
 
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:
-            # Buy/Sell order submitted/accepted to/by broker - Nothing to do
+            # 订单提交/被经纪人接受 - 无需操作
             return
 
-        # Check if an order has been completed
-        # Attention: broker could reject order if not enough cash
+        # 检查订单是否已完成
+        # 注意：如果现金不足，经纪人可能会拒绝订单
         if order.status in [order.Completed]:
             if order.isbuy():
-                self.log('BUY EXECUTED, %.2f' % order.executed.price)
+                self.log('买入执行, %.2f' % order.executed.price)
             elif order.issell():
-                self.log('SELL EXECUTED, %.2f' % order.executed.price)
+                self.log('卖出执行, %.2f' % order.executed.price)
 
             self.bar_executed = len(self)
 
         elif order.status in [order.Canceled, order.Margin, order.Rejected]:
-            self.log('Order Canceled/Margin/Rejected')
+            self.log('订单取消/保证金/被拒绝')
 
-        # Write down: no pending order
+        # 记下：没有待处理的订单
         self.order = None
 
     def next(self):
-        # Simply log the closing price of the series from the reference
-        self.log('Close, %.2f' % self.dataclose[0])
+        # 简单地记录来自引用的系列的收盘价格
+        self.log('收盘, %.2f' % self.dataclose[0])
 
-        # Check if an order is pending ... if yes, we cannot send a 2nd one
+        # 检查是否有待处理的订单...如果有，我们不能发送第二个
         if self.order:
             return
 
-        # Check if we are in the market
+        # 检查我们是否在市场中
         if not self.position:
 
-            # Not yet ... we MIGHT BUY if ...
+            # 还没有...我们可能会买入，如果...
             if self.dataclose[0] < self.dataclose[-1]:
-                    # current close less than previous close
 
-                    if self.dataclose[-1] < self.dataclose[-2]:
-                        # previous close less than the previous close
+                if self.dataclose[-1] < self.dataclose[-2]:
 
-                        # BUY, BUY, BUY!!! (with default parameters)
-                        self.log('BUY CREATE, %.2f' % self.dataclose[0])
+                    # 当前收盘低于上一个收盘
 
-                        # Keep track of the created order to avoid a 2nd order
-                        self.order = self.buy()
+                    # 上一个收盘也低于上上个收盘
+
+                    # 买入，买入，买入!!!（使用默认参数）
+                    self.log('买入创建, %.2f' % self.dataclose[0])
+
+                    # 跟踪创建的订单，以避免第二个订单
+                    self.order = self.buy()
 
         else:
 
-            # Already in the market ... we might sell
+            # 已经在市场中...我们可能会卖出
             if len(self) >= (self.bar_executed + 5):
-                # SELL, SELL, SELL!!! (with all possible default parameters)
-                self.log('SELL CREATE, %.2f' % self.dataclose[0])
+                # 卖出，卖出，卖出!!!（使用所有可能的默认参数）
+                self.log('卖出创建, %.2f' % self.dataclose[0])
 
-                # Keep track of the created order to avoid a 2nd order
+                # 跟踪创建的订单，以避免第二个订单
                 self.order = self.sell()
 
-
 if __name__ == '__main__':
-    # Create a cerebro entity
+    # 创建一个 cerebro 实体
     cerebro = bt.Cerebro()
 
-    # Add a strategy
+    # 添加一个策略
     cerebro.addstrategy(TestStrategy)
 
-    # Datas are in a subfolder of the samples. Need to find where the script is
-    # because it could have been called from anywhere
+    # 数据位于samples子文件夹中。需要找到脚本的位置，因为它可能从任何地方被调用
     modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
     datapath = os.path.join(modpath, '../../datas/orcl-1995-2014.txt')
 
-    # Create a Data Feed
+    # 创建一个数据源
     data = bt.feeds.YahooFinanceCSVData(
         dataname=datapath,
-        # Do not pass values before this date
+        # 不要传递此日期之前的值
         fromdate=datetime.datetime(2000, 1, 1),
-        # Do not pass values before this date
+        # 不要传递此日期之后的值
         todate=datetime.datetime(2000, 12, 31),
-        # Do not pass values after this date
+        # 逆向数据
         reverse=False)
 
-    # Add the Data Feed to Cerebro
+    # 将数据源添加到Cerebro
     cerebro.adddata(data)
 
-    # Set our desired cash start
+    # 设置我们希望的起始现金
     cerebro.broker.setcash(100000.0)
 
-    # Print out the starting conditions
-    print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
+    # 打印出起始条件
+    print('起始投资组合价值: %.2f' % cerebro.broker.getvalue())
 
-    # Run over everything
+    # 运行所有内容
     cerebro.run()
 
-    # Print out the final result
-    print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+    # 打印出最终结果
+    print('最终投资组合价值: %.2f' % cerebro.broker.getvalue())

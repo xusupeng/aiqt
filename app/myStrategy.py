@@ -48,8 +48,8 @@ class MyStrategy(bt.Strategy):
         cerebro = bt.Cerebro()
 
         cerebro.broker.setcash(100000.0) # 设置初始资金
-        print('tarting Portfolio Value: %.2f' % cerebro.broker.getvalue())
-    
+        # print('tarting Portfolio Value: %.2f' % cerebro.broker.getvalue())
+        print('起始投资组合价值: %.2f' % cerebro.broker.getvalue())
         # 这里添加你的策略和数据源等设置
         # cerebro.addstrategy(YourStrategy)
         cerebro.addstrategy(TestStrategy) # 添加策略
@@ -57,7 +57,8 @@ class MyStrategy(bt.Strategy):
 
         cerebro.run()
     
-        print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+        # print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+        print('最终投资组合价值: %.2f' % cerebro.broker.getvalue())
         strategy_running = False
     
     @staticmethod
