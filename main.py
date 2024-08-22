@@ -64,6 +64,7 @@ async def start_strategy():
     global strategy_running, cerebro_instance
     if not strategy_running:
         strategy_running = True
+        # 这里使用asyncio.create_task来异步运行run_strategy函数
         await run_strategy()
         return {"message": "Strategy策略已经启动！"}
     else:
