@@ -61,15 +61,15 @@ class MyStrategy(bt.Strategy):
     def getData(self):  # 获取数据
         # 数据位于samples的子文件夹中。需要找到脚本的位置，因为它可能从任何地方被调用
         modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
-        datapath = os.path.join(modpath, '../../datas/orcl-1995-2014.txt')
+        datapath = os.path.join(modpath, './bianance_eth_usd_ohlcv.csv') # 数据文件路径
 
         # 创建一个数据源
         data = bt.feeds.YahooFinanceCSVData(
             dataname=datapath,
             # 不传递此日期之前的值
-            fromdate=datetime.datetime(2000, 1, 1),
+            fromdate=datetime.datetime(2024, 6, 20),
             # 不传递此日期之后的值
-            todate=datetime.datetime(2000, 12, 31),
+            todate=datetime.datetime(2024, 8, 20),
             reverse=False)
 
         # 将数据源添加到Cerebro

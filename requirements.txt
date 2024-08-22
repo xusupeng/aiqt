@@ -20,3 +20,5 @@ aiohttp
 
 backtrader
 Matplotlib
+
+ccxt
