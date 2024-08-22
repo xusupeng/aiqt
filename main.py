@@ -12,6 +12,14 @@ import backtrader as bt
 
 app = FastAPI()
 
+
+
+# 定义一个全局变量来存储策略的状态
+strategy_running = False
+
+# 定义一个全局变量来存储Cerebro实例
+cerebro_instance = None
+
 async def run_strategy():
     global strategy_running, cerebro_instance
     cerebro = bt.Cerebro()
@@ -50,7 +58,7 @@ async def start_strategy():
     global strategy_running, cerebro_instance
     if not strategy_running:
         strategy_running = True
-        await run_strategy()
+        run_strategy()
         return {"message": "Strategy策略已经启动！"}
     else:
         return {"message": "Strategy策略正在运行中，不需要再启动！"}
